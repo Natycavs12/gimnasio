@@ -1,20 +1,6 @@
-// import React, { Component } from 'react'
-
-// export default class Navigation extends Component {
-//   render() {
-//     return (
-//       <div>Navigation</div>
-
-
-//     )
-//   }
-// }
-
-
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-// import { content } from "../../tailwind.config";
-// import "./output.css";
+
 import "../../src/output.css"
 import logo from "../../src/img/pesas2.jpg"
 import { Link } from "react-router-dom";
@@ -27,9 +13,9 @@ import { Link } from "react-router-dom";
 // ]
 const navigation = [
   { name: 'Dashboard', to: '/', current: true },
-  { name: 'Team', to: '/socios', current: false },
-  { name: 'Projects', to: '/clases', current: false },
-  { name: 'Calendar', to: '#', current: false },
+  { name: 'Socios', to: '/socios', current: false },
+  { name: 'Clases', to: '/clases', current: false },
+  { name: 'Gestionar', to: '/gestionar', current: false },
 ]
 
 function classNames(...classes) {
@@ -61,57 +47,6 @@ export default function Example() {
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                {/* {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    aria-current={item.current ? 'page' : undefined}
-                    className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'rounded-md px-3 py-2 text-sm font-medium',
-                    )}
-                  >
-                    {item.name}
-                  </a>
-
-                {/* <a key='Dashboard'
-                  href='/'
-                  aria-current='true'
-                  className='bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium'>
-                  Dashboard
-                </a> 
-                <a key='Team'
-                  href='/'
-                  aria-current='false'
-                  className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'>
-                Team
-                </a>
-                <a key='Projects'
-                  href='/'
-                  aria-current='false'
-                  className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'>
-                  Projects
-                </a>
-                <a key='Calendar'
-                  href='/'
-                  aria-current='false'
-                  className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'>
-                  Calendar
-                </a>
-*/}
-                 {/* {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    aria-current={item.current ? 'page' : undefined}
-                    className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'rounded-md px-3 py-2 text-sm font-medium',
-                    )}
-                  >
-                    {item.name}
-                  </Link>
-                ))}  */}
  
                 <Link key='Dashboard'
                   to='/'
@@ -119,23 +54,23 @@ export default function Example() {
                   className='bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium' >
                 Dashboard
                 </Link>
-                <Link key='Team'
+                <Link key='Socios'
                   to='/socios'
                   aria-current='false'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'>
-                Team
+                Socios
                 </Link>
-                <Link key='Projects'
+                <Link key='Clases'
                   to='/clases'
                   aria-current='false'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'>
-                  Projects
+                  Clases
                 </Link>
-                <Link key='Calendar'
-                  to='/'
+                <Link key='Gestionar'
+                  to='/gestionar'
                   aria-current='false'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'>
-                  Calendar
+                  Gestionar
                 </Link>
 
               </div>
@@ -170,20 +105,20 @@ export default function Example() {
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
               >
                 <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                  <Link href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
                     Your Profile
-                  </a>
+                  </Link>
 
                 </MenuItem>
                 <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                  <Link href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
                     Settings
-                  </a>
+                  </Link>
                 </MenuItem>
                 <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                  <Link href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
                     Sign out
-                  </a>
+                  </Link>
                 </MenuItem>
               </MenuItems>
             </Menu>
