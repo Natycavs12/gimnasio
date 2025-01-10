@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-import { Avatar, Card } from 'antd';
+import { Avatar, Card,Typography,Col, Divider, Row  } from 'antd';
 const { Meta } = Card;
-
+const { Title } = Typography;
 export default class ClasesList extends Component {
 
   state = {
@@ -21,12 +21,17 @@ export default class ClasesList extends Component {
   render() {
     return (
       <>
-        <div>Lista de Clases</div><div className="row">
-          <div className="col-md-4">
+        {/* <div>Lista de Clases</div> */}
+        <Title level={2}>Lista de Clases</Title>
+        <Divider orientation="left"></Divider>
+        <Row justify="space-evenly">
+        {/* <div className="row">  */}
+        
+          {/* <div className="col-md-4"> */}
             {/* form clase */}
-          </div>
-          <div className="col-md-8">
-            <ul className="list-group">
+          {/* </div> */}
+          {/* <div className="col-md-8"> */}
+            {/* <ul className="list-group"> */}
 
               {/* {this.state.clases.map(
                 clase => <li className='list-group-item list-group-item-action' key={clase._id}>
@@ -36,10 +41,10 @@ export default class ClasesList extends Component {
 
               {
                 this.state.clases.map(
-                  clase =>
+                  clase =><Col span={4}>
                     <Card
                       style={{
-                        width: 300,
+                        width: 300
                       }}
                       cover={
                         <img
@@ -60,11 +65,14 @@ export default class ClasesList extends Component {
                         description={clase.instructor}
                       />
                     </Card>
+                    </Col>
                 )
               }
-            </ul>
-          </div>
-        </div>
+            {/* </ul> */}
+          {/* </div> */}
+        {/* </div> */}
+        </Row>
+
       </>
     );
   }

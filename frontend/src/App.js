@@ -15,14 +15,9 @@ import GestionGeneral from './components/gestionGeneral';
 function App() {
   return (
 
-    // <div>
-    //   <Navigation />
-    //   HOLA TONOTOS
-    // </div>  
-
       <Router>
         <Navigation />
-        {/* <div>HOLA TONOTOS</div> */}
+
         <Routes>
           <Route path="/" element={<MenuPrincipal />} />
           <Route path="/clases" element={<ClasesList />} />
@@ -34,10 +29,6 @@ function App() {
         </Routes>
       </Router>
   );
-
-  // const rootElement = document.getElementById("root");
-  // render(
-
 }
 
 export default App;

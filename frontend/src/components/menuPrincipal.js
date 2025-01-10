@@ -1,103 +1,84 @@
 import React, { Component } from 'react';
-// import { Menu } from "antd";
-// import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 
 import {
-    AppstoreOutlined,
-    ContainerOutlined,
-    DesktopOutlined,
-    MailOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    PieChartOutlined,
+    SmileOutlined,
+    TeamOutlined,
+    DribbbleOutlined,
+    DollarCircleOutlined,
 } from '@ant-design/icons';
-import { Button, Menu } from 'antd';
+
+import { Menu, Typography } from 'antd';
+const { Title } = Typography;
 
 const items = [
-    {
-        key: '1',
-        icon: <PieChartOutlined />,
-        label: 'Socios',
-    },
+    // {
+    //     key: '1',
+    //     icon: <SmileOutlined />,
+    //     label: 'Socios',
+    //     children: [
+    //         {
+    //             key: '5',
+    //             label: 'Buscar Soci@',
+    //         },
+    //     ],
+
+    // },
     {
         key: '2',
-        icon: <DesktopOutlined />,
+        icon: <DribbbleOutlined />,
         label: 'Clases',
-    },
-    {
-        key: '3',
-        icon: <ContainerOutlined />,
-        label: 'Profesores',
-    },
-    {
-        key: 'sub1',
-        label: 'Abonos',
-        icon: <AppstoreOutlined />,
         children: [
             {
-                key: '5',
-                label: 'Cobrar Abono',
-            },
-            {
                 key: '6',
-                label: 'Clases',
+                label: 'Crear Clase',
             },
             {
                 key: '7',
-                label: 'Abonos',
+                label: 'Asignar Profesor/a', // debe existir en la BBDD
             },
-            // {
-            //     key: '8',
-            //     label: 'Option 8',
-            // },
+            {
+                key: '8',
+                label: 'Inscribir Alumn@',
+            },
+        ],
+
+    },
+    {
+        key: '3',
+        icon: <TeamOutlined />,
+        label: 'Profesores',
+        children: [
+            {
+                key: '9',
+                label: 'Crear Profesor/a',
+            },
+        ],
+
+    },
+    {
+        key: '4',
+        label: 'Abonos',
+        icon: <DollarCircleOutlined />,
+        children: [
+            {
+                key: '10',
+                label: 'Cobrar Abono',
+            },
         ],
     },
 ];
 
-// const [collapsed, setCollapsed] = useState(false);
-
-// const toggleCollapsed = () => {
-//     setCollapsed(!collapsed);
-// };
-
 export default class menuPrincipal extends Component {
 
-    state = {
-        collapsed: false,
-    };
-
-    toggleCollapsed = () => {
-        this.setState({ collapsed: !this.state.collapsed });
-    };
-
     render() {
-        return (
-            //     <>
-            //   <div>MENU PRINCIPAL</div>        
-            //     </>
-            <>
+        return ( <>
+                <Title level={2}>Menú Principal</Title>
+
                 <div
                     style={{
                         width: 46,
                     }}>
-                    <div
-                        style={{
-                            width: 46,
-                        }}
-                    >
-                        <Button
-                            type="primary"
-                            onClick={this.toggleCollapsed}
-                            style={{
-                                // marginBottom: 16,
-                                marginBottom: 0,
-                            }}
-                        >
-                            {/* {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} */}
-                            {this.state.collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                        </Button>
 
-                    </div>
                     <div
                         style={{
                             width: 256,
@@ -109,7 +90,6 @@ export default class menuPrincipal extends Component {
                             defaultOpenKeys={['sub1']}
                             mode="inline"
                             theme="dark"
-                            inlineCollapsed={this.state.collapsed}
                             items={items}
                         />
                     </div>
