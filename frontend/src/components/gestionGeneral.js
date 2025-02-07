@@ -1,12 +1,6 @@
-// Importar formularios
-import AltaSocioForm from '../forms/AltaSocioForm';
-import ModificarSociosForm from '../forms/ModificarSociosForm';
-import CrearClaseForm from '../forms/CrearClaseForm';
-import ModificarClasesForm from '../forms/ModificarClasesForm';
-
 import React, { Component } from 'react'
 import axios from 'axios';
-
+import { Menu, Typography } from 'antd';
 import {
     SmileOutlined,
     TeamOutlined,
@@ -14,9 +8,17 @@ import {
     DollarCircleOutlined,
 } from '@ant-design/icons';
 
-import { Menu, Typography } from 'antd';
-const { Title } = Typography;
+// Importar formularios
+// import AltaSocioForm from '../forms/AltaSocioForm';
+// import ModificarSociosForm from '../forms/ModificarSociosForm';
+// import CrearClaseForm from '../forms/CrearClaseForm';
+// import ModificarClasesForm from '../forms/ModificarClasesForm';
+import ClasesTabla from '../components/ClasesTabla';
+import SociosList from '../components/SociosList';
+import AbonosList from './AbonosList';
+// import { handleSendForm } from '../components/SociosList';
 
+const { Title } = Typography;
 
 const items = [
     {
@@ -94,7 +96,7 @@ export default class gestionGeneral extends Component {
         selectedKey: null, // Estado para rastrear la opción seleccionada
         options: [], // Estado para las opciones del AutoComplete
         abonos: [], // Lista de abonos cargados desde el servidor
-        socios: []
+        // socios: []
     };
 
     async componentDidMount() {
@@ -103,8 +105,11 @@ export default class gestionGeneral extends Component {
             const res = await axios.get('http://localhost:4040/abonos');
             // console.log(res);
             const abonos = res.data.map(abono => ({
-                value: abono._id,
-                label: abono.nombre,
+                // value: abono._id,
+                // label: abono.nombre,
+                ...abono,
+                key: abono._id,
+
                 // precio: abono.precio,
                 // duracionDias: abono.duracionDias,
             }));
@@ -116,67 +121,13 @@ export default class gestionGeneral extends Component {
         catch (error) {
             console.error("Error al cargar abonos:", error);
         }
-    // }
-    // async cargarSocios() {
-        // try {
-
-        //     const res = await axios.get('http://localhost:4040/socios');
-        //     // console.log(res);
-        //     const socios = res.data.map(socio => ({
-        //         // value: socio._id,
-        //         // label: socio.nombre,
-        //         // precio: socio.precio,
-        //         // duracionDias: socio.duracionDias,
-        //         key: socio._id,
-        //         nombre: socio.nombre,
-        //         apellido: socio.apellido,
-        //         dni: socio.dni,
-        //         telefono: socio.telefono,
-        //         fechaNac: socio.fechaNac,
-        //         correo: socio.correo,
-        //     }));
-        //     // this.setState({ socios: res.data });
-        //     // console.log("socios EN GS GRAL"+this.state.socios);
-        //     this.setState({ socios });
-        // }
-
-        // catch (error) {
-        //     console.error("Error al cargar abonos:", error);
-        // }
     }
 
-
-    // handleFormChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setFormData({
-    //         ...formData,
-    //         [name]: value,
-    //     });
-    // }
 
     handleMenuClick = (e) => {
         this.setState({ selectedKey: e.key });
     };
 
-    // handleSendForm = async (e) => {
-    //     console.log("FORMULARIO ENVIADO");
-    //     console.log('Datos enviados:', formData);
-
-    //     try {
-    //         // const response = await fetch('http://localhost:4000/socios', {
-    //         //     method: 'POST',
-    //         //     headers: {
-    //         //         'Content-Type': 'application/json',
-    //         //     },
-    //         //     body: JSON.stringify(formData),
-    //         // });
-    //         const result = await response.json();
-    //         alert(result.message);
-    //     } catch (error) {
-    //         console.error('Error al enviar los datos:', error);
-    //         alert('Error al enviar el formulario');
-    //     }
-    // }
 
     handleSearch = (value) => {
         // setOptions(() => {
@@ -196,66 +147,32 @@ export default class gestionGeneral extends Component {
 
     renderContent = () => {
         // const { selectedKey, options, abonos, socios} = this.state;
-        const { selectedKey, options} = this.state;
+        const { selectedKey, options, abonos } = this.state;
 
         switch (selectedKey) {
             case 'alta_socio':
-                return (
-                    <AltaSocioForm
-                        handleSendForm={this.handleSendForm}
-                        handleSearch={this.handleSearch}
-                        options={options} //mail options
-                        onChange={() => { }}
-                        onSearch={() => { }}
-                        // abonos={abonos}
-                    />
-                );
             case 'modifica_socio':
                 // return <p>Formulario para modificar datos de soci@s.</p>;
-                return (
-                    <ModificarSociosForm
-                        // handleSendForm={this.handleSendForm}
-                        // handleSearch={this.handleSearch}
-                        // // options={options} //mail options
-                        // onChange={() => { }}
-                        // onSearch={() => { }}
-                        // // abonos={abonos}
-                        // socios={socios}
-                    />
-                );
+                return <SociosList selectedKey={selectedKey} options={options} abonos={abonos}/>;
 
-            case 'crea_clase':
                 // return <p>Formulario para crear una clase.</p>;
-                return (
-                    <CrearClaseForm
-                        handleSendForm={this.handleSendForm}
-                        handleSearch={this.handleSearch}
-                        options={options} //mail options
-                        onChange={() => { }}
-                        onSearch={() => { }}
-                        // abonos={abonos}
-                    />
-                );
+            case 'crea_clase':
             case 'modifica_clase':
-                // return <p>Formulario para modificar una clase.</p>;
-                return (
-                    <ModificarClasesForm
-                        // handleSendForm={this.handleSendForm}
-                        // handleSearch={this.handleSearch}
-                        // options={options} //mail options
-                        // onChange={() => { }}
-                        // onSearch={() => { }}
-                        // abonos={abonos}
-                    />
-                );
-            case 'cancela_clase':
-                return <p>Formulario para dar de baja una clase.</p>;
+                // new ClasesTabla();
+                return <ClasesTabla selectedKey={selectedKey} options={options}/>;
+
+            // return <p>Formulario para modificar una clase.</p>;
+
+            // case 'cancela_clase':
+            //     return <p>Formulario para dar de baja una clase.</p>;
             case 'alta_profe':
                 return <p>Formulario para dar de alta a un profesor.</p>;
             case 'modifica_profe':
                 return <p>Formulario para modificar los datos de un profesor.</p>;
             case 'modifica_abono':
-                return <p>Formulario para modificar un abono.</p>;
+                // return <p>Formulario para modificar un abono.</p>;
+                return <AbonosList selectedKey={selectedKey} options={options}s/>;
+
             default:
                 return <p>Seleccione una opción del menú.</p>;
         }
@@ -272,7 +189,7 @@ export default class gestionGeneral extends Component {
                         width: 46,
                     }}> */}
 
-                <div style={{ width: 256,}}>
+                <div style={{ width: 256, }}>
 
                     <Menu
                         defaultSelectedKeys={['1']}

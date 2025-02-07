@@ -2,7 +2,7 @@ const { Router } = require('express');
 const router = Router();
 
 const { getSocios, get1Socio, createSocio, updateSocio, deleteSocio } = require('../controllers/socios.controller');
-
+// const { getSocios } = require('../')
 
 router.route('/')
     // .get( (req,res) => res.send('GET - RUTAS SOCIOS') );

@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 
-const { getAbonos } = require('../controllers/abonos.controller');
+const { getAbonos,updateAbono } = require('../controllers/abonos.controller');
 
 
 router.route('/')
@@ -9,9 +9,9 @@ router.route('/')
     .get(getAbonos)
     // .post(createSocio)
 
-    // router.route('/:id')
+    router.route('/:id')
     // .get(get1Socio)
-    // .put(updateSocio)
+    .put(updateAbono)
     // .delete(deleteSocio)
     // .patch()
 

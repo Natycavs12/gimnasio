@@ -14,7 +14,11 @@ export default class ClasesList extends Component {
   async componentDidMount() {
     const res = await axios.get('http://localhost:4040/clases');
     // console.log(res);
-    this.setState({ clases: res.data });
+    const clases = res.data.map(clase => ({
+      ...clase,
+      key: clase._id,
+    }));
+    this.setState({ clases });    // this.setState({ clases: res.data });
     // console.log(this.state.clases);
   }
 

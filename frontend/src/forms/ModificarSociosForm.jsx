@@ -1,51 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Space, Table, Typography, Modal } from 'antd';
+// import React, { useState, useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
+
+import { Button, Space, Table, Modal , Popconfirm} from 'antd';
 import AltaSocioForm from '../forms/AltaSocioForm';
-import axios from 'axios';
 
-const { Title } = Typography;
-
-const ModificarSociosForm = () => {
-    // const [loading, setLoading] = useState(false);
-    // const state = {
-    //     socios: socios
-    // }
-    // console.log("socios"+socios);
-    const [socios, setSocios] = useState([]);
-    const [loading, setLoading] = useState(false);
-
-
+const ModificarSociosForm = ({socios, handleSendForm, handleEliminar, abonos}) => {
+    const [loading] = useState(false);
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
-    // const [modalText, setModalText] = useState('Content of the modal');
     const [selectedSocio, setSelectedSocio] = useState(null);
-
-
-    useEffect(() => {
-        const fetchSocios = async () => {
-            setLoading(true);
-            try {
-                const res = await axios.get('http://localhost:4040/socios');
-                setSocios(res.data);
-                // console.log(res.data);
-            } catch (error) {
-                console.error("Error al cargar socios:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchSocios();
-    }, []);
 
     const handleModificar = (record) => {
         // setSelectedSocio(record);
+        // window.alert("APRETASTE MODIFICAR EN FORMULARIO");
         setSelectedSocio({
             ...record,
             fechaNac: record.fechaNac ? record.fechaNac.split('T')[0] : null,
         });
         setOpen(true);
     };
+
+    // const handleEliminar = () => {
+    //     console.log("BOTON ELIMINAR");
+    //     window.alert("APRETASTE ELIMINAR EN FORMULARIO");
+    //     //LLAMAR A FORMULARIO ALTA PERO CON LOS DATOS DE LA LINEA DE LA TABLA ELEGIDA
+    //     // TIENE QUE HACER EN EL SUBMIT EL DELETE DE LOS DATOS
+    // };
 
     const handleOk = () => {
         // setModalText('The modal will be closed after two seconds');
@@ -57,7 +37,7 @@ const ModificarSociosForm = () => {
     };
 
     const handleCancel = () => {
-        console.log('Clicked cancel button');
+        // console.log('Clicked cancel button');
         setOpen(false);
     };
 
@@ -112,11 +92,17 @@ const ModificarSociosForm = () => {
             key: 'action',
             render: (_, record) => (
                 <>
-
-
                     <Space size="middle">
+                        <Button type="primary" id="modificar" onClick={() => handleModificar(record)}>Modificar</Button>
                         {/* <Button id="modificar" onClick={handleModificar}>Modificar</Button> */}
-                        <Button id="modificar" onClick={() => handleModificar(record)}>Modificar</Button>
+                        <Popconfirm
+                            title="¿Estás seguro de eliminar este socio?"
+                            onConfirm={() => handleEliminar(record._id)}
+                            okText="Sí"
+                            cancelText="No"
+                            placement="topRight"
+                            trigger="click"
+                            >
 
                         {/* <Modal
                             title="Modificar Datos de Socio"
@@ -127,7 +113,11 @@ const ModificarSociosForm = () => {
                         > */}
                         {/* <p>{modalText}</p> */}
                         {/* </Modal> */}
-                        <Button id="eliminar" onClick={handleEliminar}>Eliminar</Button>
+                        {/* <Button id="eliminar" onClick={handleEliminar(record)}>Eliminar</Button> */}
+                        {/* <Button id="eliminar" danger onClick={() => handleEliminar(record._id)}>Eliminar</Button> */}
+                        <Button id="eliminar" danger >Eliminar</Button>
+
+                        </Popconfirm>
                         {/* <Modal
                             title="Title"
                             open={open}
@@ -142,42 +132,13 @@ const ModificarSociosForm = () => {
             ),
         },
     ];
-
-    const handleEliminar = () => {
-        console.log("BOTON ELIMINAR");
-        //LLAMAR A FORMULARIO ALTA PERO CON LOS DATOS DE LA LINEA DE LA TABLA ELEGIDA
-        // TIENE QUE HACER EN EL SUBMIT EL DELETE DE LOS DATOS
-    };
-
-    // const handleModificar = () => {
-    //     console.log("BOTON MODIFICAR");
-    //     window.alert("APRETASTE MODIFICAR");
-    //LLAMAR A FORMULARIO ALTA PERO CON LOS DATOS DE LA LINEA DE LA TABLA ELEGIDA
-    // TIENE QUE HACER EN EL SUBMIT EL UPDATE DE LOS DATOS
-    // }
-
-    // const handleClick = () => {
-    //     var boton = ''
-    //     // Aquí defines lo que ocurre cuando se hace clic en el botón
-    //     console.log('Botón clickeado');
-    //     // var modifica = document.getElementById("modificar");
-    //     // boton = document.getElementById("eliminar");
-    //     boton = document.getElementById("modificar");
-    //     // console.log("El valor del boton es: " + valueOf(boton));
-    //     var valor = document.querySelector("#modificar");
-    //     console.log("valor boton"+valor);
-    //     if (boton == "modificar") {
-    //         console.log("el boton es modificar");
-    //     } else if (boton == "eliminar") {
-    //         console.log("el boton es eliminar");
-    //     }
-    // };
-
-
+    // useEffect(() => {
+    //     console.log("Abonos recibidos en ModifSocioForm:", abonos);
+    // }, [abonos]);
     return (
         <>
             {/* <div>Lista de Socios / DATOS PERSONALES</div> */}
-            <Title level={2}>Información de Soci@s</Title>
+            {/* <Title level={2}>Información de Soci@s</Title> */}
             <Table columns={columns} dataSource={socios} loading={loading} rowKey="_id" />
             <Modal
                 title="Modificar Datos de Socio"
@@ -186,12 +147,10 @@ const ModificarSociosForm = () => {
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
             >
-                {selectedSocio && <AltaSocioForm socio={selectedSocio} />}
+                {selectedSocio && <AltaSocioForm socio={selectedSocio} handleSendForm={handleSendForm} abonos={abonos} />}
             </Modal>
         </>
-
     );
-
 };
 
 export default ModificarSociosForm;

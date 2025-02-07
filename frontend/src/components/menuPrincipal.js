@@ -28,10 +28,10 @@ const items = [
         icon: <DribbbleOutlined />,
         label: 'Clases',
         children: [
-            {
-                key: '6',
-                label: 'Crear Clase',
-            },
+            // {
+            //     key: '6',
+            //     label: 'Crear Clase',
+            // },
             {
                 key: '7',
                 label: 'Asignar Profesor/a', // debe existir en la BBDD
@@ -40,21 +40,25 @@ const items = [
                 key: '8',
                 label: 'Inscribir Alumn@',
             },
-        ],
-
-    },
-    {
-        key: '3',
-        icon: <TeamOutlined />,
-        label: 'Profesores',
-        children: [
             {
                 key: '9',
-                label: 'Crear Profesor/a',
+                label: 'Reasignar Clase',
             },
         ],
 
     },
+    // {
+    //     key: '3',
+    //     icon: <TeamOutlined />,
+    //     label: 'Profesores',
+    //     children: [
+    //         {
+    //             key: '9',
+    //             label: 'Crear Profesor/a',
+    //         },
+    //     ],
+
+    // },
     {
         key: '4',
         label: 'Abonos',
@@ -63,6 +67,10 @@ const items = [
             {
                 key: '10',
                 label: 'Cobrar Abono',
+            }, 
+            {
+                key: '11',
+                label: 'Asignar Abono a Alumn@',
             },
         ],
     },
@@ -71,30 +79,30 @@ const items = [
 export default class menuPrincipal extends Component {
 
     render() {
-        return ( <>
-                <Title level={2}>Menú Principal</Title>
+        return (<>
+            <Title level={2}>Menú Principal</Title>
+
+            <div
+                style={{
+                    width: 46,
+                }}>
 
                 <div
                     style={{
-                        width: 46,
-                    }}>
+                        width: 256,
+                    }}
+                >
 
-                    <div
-                        style={{
-                            width: 256,
-                        }}
-                    >
-
-                        <Menu
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            mode="inline"
-                            theme="dark"
-                            items={items}
-                        />
-                    </div>
+                    <Menu
+                        defaultSelectedKeys={['1']}
+                        defaultOpenKeys={['sub1']}
+                        mode="inline"
+                        theme="dark"
+                        items={items}
+                    />
                 </div>
-            </>
+            </div>
+        </>
         )
     }
 }
